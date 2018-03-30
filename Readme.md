@@ -3,7 +3,7 @@
 # Create database of locations 🌎 🌍 🌏
 
 ## Overview
-This script will create a database in `Mongo` with locations using this [data](http://download.geonames.org/export/dump)
+This script will create a database in `Mongo` with locations using this [data](http://download.geonames.org/export/dump).
 By default this script doesn't save all locations (also include mountains, lakes, hotels ...), just save the areas that can be considered a settlement. That info is [here](http://www.geonames.org/export/codes.html).
 
 ### Before start
@@ -30,4 +30,4 @@ To run the script, run:
     -h, --help               output usage information
 ```
 
-List of valid ISO 3166-1 alpha-2 codes [here](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#CX)
+List of valid ISO 3166-1 alpha-2 codes [here](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#AD)
