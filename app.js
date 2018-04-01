@@ -6,6 +6,7 @@ const removeFile = util.promisify(fs.unlink)
 const rmdir = require('rimraf')
 const readline = require('readline')
 const mongoose = require('mongoose')
+const ProgressBar = require('progress')
 const Location = require('./models/location')
 const request = require('request')
 const path = require('path')
@@ -106,6 +107,7 @@ const saveFile = url => {
 }
 
 const downloadFiles = async countryCodes => {
+  console.log(`Donwloading files in ${path.join(__dirname, 'tmp')} ...`)
   countryCodes.filter(code => {
     if (ISO31661.indexOf(code) === -1) console.error(code, 'is not a valid code')
     return ISO31661.indexOf(code) > -1
@@ -140,11 +142,13 @@ const main = async ({countries, mongoUrl, codes}) => {
     await mkdir(tmpFolder)
     await downloadFiles(countries)
     await removeFile(path.join(__dirname, 'tmp', 'readme.txt'))
-
+    let bar = new ProgressBar(':bar :current/:total :percent', { total: countries.length })
     const files = await readdir(tmpFolder)
 
+    console.log('Filling the database')
     for (let file of files) {
       await readFile(path.join(__dirname, 'tmp', file), codes)
+      bar.tick()
     }
   } catch (error) {
     console.error(error)
